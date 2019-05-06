@@ -6,6 +6,7 @@ class HelloSerializer(serializers.Serializer):
 
     name = serializers.CharField(max_length=10)
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     """a serializer for our user profile objects"""
 
@@ -27,3 +28,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class ProfileFeedItemSerializer(serializers.ModelSerializer):
+    """a serializer for profile feed item"""
+
+    class Meta:
+        model = models.ProfileFeedItem
+        fields = ('id', 'user_profile', 'status_text', 'created_on')
+        extra_kwargs = {'user_profile': {'read_only': True}}
